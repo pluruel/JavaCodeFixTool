@@ -16,26 +16,23 @@ def search(dirname):
 def cpyandpaste(dirname, path, filename):
     inf = open(dirname + path, 'r')
     newpath = path
-    # newpath = newpath.replace("autosar\\designer", "autosar\\designer")
     outputfullpath = outputpath + newpath
     outputfolderpath = outputfullpath.replace(filename, '')
     
-    if outputfullpath.find(".git") > 0:
+    ext = os.path.splitext(filename)[-1]
+
+    if ext == '.class' or ext == '.git'):
         return
 
     if not os.path.exists(outputfolderpath):
         os.makedirs(outputfolderpath)
     outf = open(outputfullpath, 'w')
-    ext = os.path.splitext(filename)[-1]
-    
     
     if ext != '.java' :
-        if ext == '.class'  :
-            outf.close()
-            return
         copyfile(dirname + path, outputfullpath)
         outf.close()
         return
+
     else :
         while True:
             line = inf.readline()
